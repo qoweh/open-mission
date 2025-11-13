@@ -1,4 +1,4 @@
-# 📘 [객체지향의 사실과 오해](./object-oriented-misunderstanding.md)
+# 📘 객체지향의 사실과 오해
 <img src="./객체지향의사실과오해.jpg" width="300" alt="객체지향의 사실과 오해">
 
 [노션 : 책 노트 및 메모](https://www.notion.so/2a2b5f46b3c280bba62bfc055bad73d9?source=copy_link)
