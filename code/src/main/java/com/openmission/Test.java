@@ -15,9 +15,11 @@ import java.util.Properties;
 
 public class Test {
 
-    private static Dotenv dotenv = Dotenv.load();
-    private static final String GOOGLE_APP_PASSWORD = dotenv.get("GOOGLE_APP_PASSWORD");
-    private static final String NAVER_APP_PASSWORD = dotenv.get("NAVER_APP_PASSWORD");
+    private static final String productEnvFile = ".env.examples";
+    private static final String developEnvFile = ".env";
+    private static Dotenv dotenv = Dotenv.configure().filename(developEnvFile).load();
+    private static final String GOOGLE_APP_PASSWORD = dotenv.get("GOOGLE_APP_PASSWORD", "EMPTY_VALUE");
+    private static final String NAVER_APP_PASSWORD = dotenv.get("NAVER_APP_PASSWORD", "EMPTY_VALUE");
 
     public static void main(String[] args) {
         Properties props = new Properties();
