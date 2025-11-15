@@ -5,7 +5,7 @@ import jakarta.mail.Address;
 public class Receiver {
     private static final String EMPTY_STRING = "빈 값입니다.";
     private static final String INVALID_DOMAIN_MAIL = "유효하지 않은 이메일입니다.";
-    private static final String MAIL_PATTERN = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
+    private static final String MAIL_PATTERN = "^[\\w.-]+@[\\w.-]+\\.[A-Za-z]{2,}$";
 
     private Receiver(String mail) {
     }
