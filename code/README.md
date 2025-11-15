@@ -60,6 +60,9 @@
 
 ---
 ## 2. 구조
+행동 : 메일 보내기 (객체 : 발신자 -> 수신자)
+
+
 - View : InputView, OutputView
 - Controller : 
 - Domain :
