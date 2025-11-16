@@ -1,5 +1,7 @@
 package com.openmission.domain;
 
+import jakarta.mail.Address;
+import jakarta.mail.internet.InternetAddress;
 import java.util.List;
 
 public class Receivers {
@@ -13,4 +15,20 @@ public class Receivers {
         return new Receivers(receivers);
     }
 
+    public List<String> getMails() {
+        return this.receivers
+                .stream()
+                .map(Receiver::getMail)
+                .toList();
+    }
+
+    public Address[] getAddresses() {
+        return getMails()
+                .stream()
+                .map(s -> {
+                    try { return new InternetAddress(s); }
+                    catch (Exception e) { throw new RuntimeException(e); }
+                })
+                .toArray(Address[]::new);
+    }
 }

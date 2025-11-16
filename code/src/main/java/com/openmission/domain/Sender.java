@@ -74,10 +74,10 @@ public abstract class Sender {
         return this.session;
     }
 
-    public void send(Mail mail, Receiver receiver) throws MessagingException {
+    public void send(Mail mail, Receivers receivers) throws MessagingException {
         Message message = mail.setUpMessage();
         message.setFrom(new InternetAddress(Sender.mail));
-        message.setRecipients(Message.RecipientType.TO, receiver.getReceivers());
+        message.setRecipients(Message.RecipientType.TO, receivers.getAddresses());
 
         Transport.send(message);
     }

@@ -3,11 +3,13 @@ package com.openmission.domain;
 import jakarta.mail.Address;
 
 public class Receiver {
+    private final String mail;
     private static final String EMPTY_STRING = "빈 값입니다.";
     private static final String INVALID_DOMAIN_MAIL = "유효하지 않은 이메일입니다.";
     private static final String MAIL_PATTERN = "^[\\w.-]+@[\\w.-]+\\.[A-Za-z]{2,}$";
 
     private Receiver(String mail) {
+        this.mail = mail;
     }
 
     public static Receiver from(String mail) {
@@ -24,7 +26,7 @@ public class Receiver {
         }
     }
 
-    public Address[] getReceivers() {
-        return null;
+    public String getMail() {
+        return this.mail;
     }
 }

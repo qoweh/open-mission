@@ -7,9 +7,4 @@ public class NaverSender extends Sender{
         Sender.properties.put("mail.smtp.port", "587");
         Sender.properties.put("mail.smtp.ssl.trust", "smtp.naver.com");
     }
-
-    @Override
-    public void send(Mail mail, Receiver receiver) {
-
-    }
 }

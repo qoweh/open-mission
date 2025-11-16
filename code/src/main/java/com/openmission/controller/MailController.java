@@ -25,8 +25,8 @@ public class MailController {
         Receivers receivers = get(this::getReceivers);
         Mail mail = get(() -> Mail.of(InputView.enterTitle(), InputView.enterContent(), sender.getSession()));
 
-//        accept(Sender::send, sender, mail, receivers);
-        OutputView.printSendMailResult();
+        accept(Sender::send, sender, mail, receivers);
+        OutputView.printSendMailResult(receivers.getMails());
     }
 
 
