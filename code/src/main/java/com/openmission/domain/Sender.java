@@ -70,11 +70,15 @@ public abstract class Sender {
         };
     }
 
+    public String getMail() {
+        return mail;
+    }
+
     public Session getSession() {
         return this.session;
     }
 
-    public void send(Mail mail, Receivers receivers) throws MessagingException {
+    public void send(Receivers receivers, Mail mail) throws MessagingException {
         Message message = mail.setUpMessage();
         message.setFrom(new InternetAddress(Sender.mail));
         message.setRecipients(Message.RecipientType.TO, receivers.getAddresses());

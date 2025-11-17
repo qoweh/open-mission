@@ -1,7 +1,6 @@
 package com.openmission;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import jakarta.mail.Address;
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
 import jakarta.mail.PasswordAuthentication;
@@ -9,7 +8,6 @@ import jakarta.mail.Session;
 import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
