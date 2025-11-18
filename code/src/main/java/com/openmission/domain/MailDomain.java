@@ -1,10 +1,11 @@
 package com.openmission.domain;
 
+import com.openmission.domain.entity.Sender;
 import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.mail.Authenticator;
 import jakarta.mail.PasswordAuthentication;
 
-public class Domain {
+public class MailDomain {
     private static final String EMPTY_STRING = "빈 값입니다.";
     private static final String INVALID_DOMAIN_MAIL = "지원하지 않는 도메인의 이메일입니다.";
     private static final String MAIL_PATTERN = "^[\\w.-]+@[\\w.-]+\\.[A-Za-z]{2,}$";

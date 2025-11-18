@@ -1,4 +1,4 @@
-package com.openmission.domain;
+package com.openmission.domain.entity;
 
 public class Receiver {
     private final String mail;

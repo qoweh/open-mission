@@ -1,5 +1,6 @@
-package com.openmission.domain;
+package com.openmission.domain.entity;
 
+import com.openmission.domain.MailDomain;
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -27,7 +28,7 @@ public abstract class Sender {
     }
 
     public static Sender from(String mail) {
-        return Domain.createFrom(mail);
+        return MailDomain.createFrom(mail);
     }
 
     public Session getSession() {
