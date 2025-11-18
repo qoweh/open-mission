@@ -1,7 +1,5 @@
 package com.openmission.domain;
 
-import jakarta.mail.Address;
-
 public class Receiver {
     private final String mail;
     private static final String EMPTY_STRING = "빈 값입니다.";

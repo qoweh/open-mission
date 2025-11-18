@@ -6,17 +6,13 @@ import jakarta.mail.Session;
 import jakarta.mail.internet.MimeMessage;
 
 public class Mail {
-    private final String title;
-    private final String content;
-    private final Message message;
+    private final SendableMessage _sendableMessage;
 
-    private Mail(String title, String content, Message message) {
-        this.title = title;
-        this.content = content;
-        this.message = message;
+    private Mail(String title, String content, Message message) throws MessagingException {
+        _sendableMessage = new SendableMessage(title, content, message);
     }
 
-    public static Mail of(String title, String content, Session session) {
+    public static Mail of(String title, String content, Session session) throws MessagingException {
         validate(title, content);
         return new Mail(title, content, new MimeMessage(session));
     }
@@ -24,10 +20,7 @@ public class Mail {
     private static void validate(String title, String content) {
     }
 
-    public Message setUpMessage() throws MessagingException {
-        message.setSubject(title);
-        message.setContent(content, "text/html; charset=utf-8");
-
-        return message;
+    public Message getMessage() {
+        return _sendableMessage.getMessage();
     }
 }

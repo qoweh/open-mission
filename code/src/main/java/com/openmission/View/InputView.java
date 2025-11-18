@@ -1,4 +1,4 @@
-package com.openmission.View;
+package com.openmission.view;
 
 import camp.nextstep.edu.missionutils.Console;
 

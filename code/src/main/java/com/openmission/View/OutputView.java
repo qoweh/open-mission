@@ -1,4 +1,4 @@
-package com.openmission.View;
+package com.openmission.view.;
 
 import java.util.List;
 

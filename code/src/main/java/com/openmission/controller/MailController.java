@@ -1,15 +1,14 @@
 package com.openmission.controller;
 
-import com.openmission.View.InputView;
-import com.openmission.View.OutputView;
+import com.openmission.util.Utils;
+import com.openmission.view.InputView;
+import com.openmission.view.OutputView;
 import com.openmission.domain.Mail;
 import com.openmission.domain.Receiver;
 import com.openmission.domain.Receivers;
 import com.openmission.domain.Sender;
-import com.openmission.util.TriConsumer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class MailController {
 
@@ -20,53 +19,37 @@ public class MailController {
 
     private void sendMail() {
 //        checkDraftMail();
+        Sender sender = Utils.get(() -> getSender());
+        Receivers receivers = Utils.get(() -> getReceivers());
+        Mail mail = Utils.get(() -> Mail.of(InputView.enterTitle(), InputView.enterContent(), sender.getSession()));
 
-        Sender sender = get(this::getSender);
-        Receivers receivers = get(this::getReceivers);
-        Mail mail = get(() -> Mail.of(InputView.enterTitle(), InputView.enterContent(), sender.getSession()));
-
-        accept(Sender::send, sender, mail, receivers);
+        Utils.accept(Sender::send, sender, mail, receivers);
         OutputView.printSendMailResult(receivers.getMails());
     }
-
 
     private Sender getSender() {
         return Sender.from(InputView.enterSenderMail());
     }
 
     private Receivers getReceivers() {
-        List<Receiver> receiverList = new ArrayList<>();
+        List<Receiver> receivers = createReceivers();
+        return Receivers.from(receivers);
+    }
+
+    private static List<Receiver> createReceivers() {
+        List<Receiver> receivers = new ArrayList<>();
         while (true) {
             String mail = InputView.enterReceiverMail();
             if (mail.equals(".")) {
                 break;
             }
-            receiverList.add(Receiver.from(mail));
+            receivers.add(Receiver.from(mail));
         }
-        if (receiverList.isEmpty()) {
+        if (receivers.isEmpty()) {
             throw new IllegalArgumentException("지정된 수신자의 이메일이 없습니다.");
         }
-        return Receivers.from(receiverList);
+        return receivers;
     }
 
-    private <T> T get(Supplier<T> supplier) {
-        while (true) {
-            try {
-                return supplier.get();
-            } catch (Exception e) {
-                OutputView.printError(e.getMessage());
-            }
-        }
-    }
 
-    private <T, U, R> void accept(TriConsumer<T, U, R> consumer, T t, U u, R r) {
-        while (true) {
-            try {
-                consumer.accept(t, u, r);
-                return ;
-            } catch (Exception e) {
-                OutputView.printError(e.getMessage());
-            }
-        }
-    }
 }
