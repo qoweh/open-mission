@@ -10,9 +10,8 @@ public class InputView {
     private static final String RECEIVER_MESSAGE = "수신자의 이메일을 적절하게 입력해주세요. 입력을 그만하시려면 기호 '" + RECEIVER_SPECIAL_CHARACTER + "'를 입력해주세요.";
     private static final String TITLE_MESSAGE = "전송하려는 메일의 제목을 입력해주세요.";
     private static final String CONTENT_MESSAGE = "전송하려는 메일의 내용을 입력해주세요.";
-    private static final String DRAFT_MESSAGE = "임시 저장을 원하시면 알파벳 '" + DRAFT_SPECIAL_CHARACTER + "'를 입력하세요.";
-    private static final String LAST_CHECK_MESSAGE = "전송하지 않고 " + DRAFT_MESSAGE;
-    private static final String PICK_MESSAGE = "이어서 전송할 메일 번호를 입력해주세요."+ System.lineSeparator() + "새로운 메일을 작성하려면 0을 입력해주세요";
+    private static final String DRAFT_MESSAGE = "임시 저장을 원하시면 알파벳 'D'를 입력하세요.";
+    private static final String RETRY_MESSAGE = "이어서 메일을 계속 전송하시려면 y, 아니라면 n를 입력해주세요.";
 
     public static void printStartMessage() {
         System.out.println(START_MESSAGE);
@@ -35,14 +34,6 @@ public class InputView {
     public static String enterContent() {
         printDraftMessage();
         return read(CONTENT_MESSAGE);
-    }
-
-    public static String enterLastCheck() {
-        return read(LAST_CHECK_MESSAGE);
-    }
-
-    public static String enterPickDraftMail() {
-        return read(PICK_MESSAGE);
     }
 
     private static String read(String message) {

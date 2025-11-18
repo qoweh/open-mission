@@ -1,8 +1,9 @@
 package com.openmission.domain;
 
+import com.openmission.domain.entity.Sender;
 import jakarta.mail.Authenticator;
 
-public class GoogleSender extends Sender{
+public class GoogleSender extends Sender {
     protected GoogleSender(String senderMail, Authenticator authenticator) {
         super(senderMail, authenticator);
         _properties.put("mail.smtp.host", "smtp.google.com");

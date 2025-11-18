@@ -3,25 +3,26 @@ package com.openmission.controller;
 import com.openmission.util.Utils;
 import com.openmission.view.InputView;
 import com.openmission.view.OutputView;
-import com.openmission.domain.Mail;
-import com.openmission.domain.Receiver;
-import com.openmission.domain.Receivers;
-import com.openmission.domain.Sender;
+import com.openmission.domain.entity.Mail;
+import com.openmission.domain.entity.Receiver;
+import com.openmission.domain.entity.Receivers;
+import com.openmission.domain.entity.Sender;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MailController {
-
     public void run() {
         InputView.printStartMessage();
-        DraftMails draftMails = new DraftMails();
-        while (true) {
-            draftMails = Utils.runUntilValid(this::sendMail, draftMails);
-        }
+        Utils.retryUntilGet("n", () -> process());
+    }
+
+    private String process() {
+        checkDraftMail();
+        sendMail();
+        return InputView.enterRetry();
     }
 
     private void sendMail() {
-//        checkDraftMail();
         Sender sender = Utils.get(() -> getSender());
         Receivers receivers = Utils.get(() -> getReceivers());
         Mail mail = Utils.get(() -> Mail.of(InputView.enterTitle(), InputView.enterContent(), sender.getSession()));
@@ -40,7 +41,14 @@ public class MailController {
     }
 
     private static List<Receiver> createReceivers() {
-        List<Receiver> receivers = new ArrayList<>();
+        List<Receiver> receivers = enterReceivers(new ArrayList<>());
+        if (receivers.isEmpty()) {
+            throw new IllegalArgumentException("지정된 수신자의 이메일이 없습니다.");
+        }
+        return receivers;
+    }
+
+    private static List<Receiver> enterReceivers(List<Receiver> receivers) {
         while (true) {
             try {
                 String mail = Utils.wantDraft(InputView.enterReceiverMail());
@@ -51,13 +59,12 @@ public class MailController {
             } catch (Exception e) {
                 break;
             }
-            receivers.add(Receiver.from(mail));
-        }
-        if (receivers.isEmpty()) {
-            throw new IllegalArgumentException("지정된 수신자의 이메일이 없습니다.");
+            receivers.add(createReceiver(mail));
         }
         return receivers;
     }
 
-
+    private static Receiver createReceiver(String mail) {
+        return Receiver.from(mail);
+    }
 }

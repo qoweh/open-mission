@@ -1,4 +1,4 @@
-package com.openmission.view.;
+package com.openmission.view;
 
 import com.openmission.domain.DraftMail;
 import java.util.List;

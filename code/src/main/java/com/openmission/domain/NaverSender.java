@@ -1,8 +1,9 @@
 package com.openmission.domain;
 
+import com.openmission.domain.entity.Sender;
 import jakarta.mail.Authenticator;
 
-public class NaverSender extends Sender{
+public class NaverSender extends Sender {
     protected NaverSender(String senderMail, Authenticator authenticator) {
         super(senderMail, authenticator);
         _properties.put("mail.smtp.host", "smtp.naver.com");
