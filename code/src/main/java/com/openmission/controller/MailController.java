@@ -1,14 +1,12 @@
 package com.openmission.controller;
 
-import com.openmission.View.InputView;
-import com.openmission.View.OutputView;
-import com.openmission.domain.DraftMail;
-import com.openmission.domain.DraftMails;
+import com.openmission.util.Utils;
+import com.openmission.view.InputView;
+import com.openmission.view.OutputView;
 import com.openmission.domain.Mail;
 import com.openmission.domain.Receiver;
 import com.openmission.domain.Receivers;
 import com.openmission.domain.Sender;
-import com.openmission.util.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,50 +20,27 @@ public class MailController {
         }
     }
 
-    private DraftMails sendMail(DraftMails draftMails) {
-        DraftMail savedDraftMail = checkDraftMail(draftMails);
-        DraftMail draftMail = (savedDraftMail == null) ? new DraftMail() : savedDraftMail;
+    private void sendMail() {
+//        checkDraftMail();
+        Sender sender = Utils.get(() -> getSender());
+        Receivers receivers = Utils.get(() -> getReceivers());
+        Mail mail = Utils.get(() -> Mail.of(InputView.enterTitle(), InputView.enterContent(), sender.getSession()));
 
-        try {
-            Sender sender = Utils.getUntilValid(() -> enterSender(draftMail));
-            Receivers receivers = Utils.getUntilValid(() -> enterReceivers(draftMail));
-            String title = Utils.getUntilValid(() -> enterTitle(draftMail));
-            String content = Utils.getUntilValid(() -> enterContent(draftMail));
-            Mail mail = getMail(title, content, sender, draftMail);
-            lastCheck();
-
-            Utils.runUntilValid(Sender::send, sender, receivers, mail);
-            OutputView.printSendMailResult(receivers.getMails());
-        } catch (RuntimeException e) {
-            draftMails.add(draftMail);
-        }
-        return draftMails;
+        Utils.accept(Sender::send, sender, mail, receivers);
+        OutputView.printSendMailResult(receivers.getMails());
     }
 
-    private DraftMail checkDraftMail(DraftMails draftMails) {
-        if (draftMails.isEmpty())
-            return null;
-        OutputView.printDraftNotify();
-        Utils.eachMails(draftMails, OutputView::printDraftMailTitle);
-        // 1~n으로 골라야 하고 0 입력 시 고르지 않음.
-        Integer pickDraftMail = Integer.valueOf(String.valueOf(InputView.enterPickDraftMail())) - 1;
-        if (pickDraftMail == -1) {
-            return null;
-        }
-        DraftMail draftMail = draftMails.getMail(pickDraftMail);
-        OutputView.printDraftMailDetail(draftMail);
-        return draftMail;
+    private Sender getSender() {
+        return Sender.from(InputView.enterSenderMail());
     }
 
-    private Sender enterSender(DraftMail draftMail) {
-        Sender sender = Sender.from(InputView.enterSenderMail());
-        draftMail.setSender(sender);
-        return sender;
+    private Receivers getReceivers() {
+        List<Receiver> receivers = createReceivers();
+        return Receivers.from(receivers);
     }
 
-    private Receivers enterReceivers(DraftMail draftMail) {
-        if (draftMail.getReceivers() != null) return draftMail.getReceivers();
-        List<Receiver> receiverList = new ArrayList<>();
+    private static List<Receiver> createReceivers() {
+        List<Receiver> receivers = new ArrayList<>();
         while (true) {
             try {
                 String mail = Utils.wantDraft(InputView.enterReceiverMail());
@@ -76,36 +51,13 @@ public class MailController {
             } catch (Exception e) {
                 break;
             }
+            receivers.add(Receiver.from(mail));
         }
-        if (receiverList.isEmpty()) {
+        if (receivers.isEmpty()) {
             throw new IllegalArgumentException("지정된 수신자의 이메일이 없습니다.");
         }
-        Receivers receivers = Receivers.from(receiverList);
-        draftMail.setReceivers(receivers);
         return receivers;
     }
 
-    private String enterTitle(DraftMail draftMail) {
-        if (draftMail.getTitle() != null) return draftMail.getTitle();
-        String title = Utils.wantDraft(InputView.enterTitle());
-        draftMail.setTitle(title);
-        return title;
-    }
 
-    private String enterContent(DraftMail draftMail) {
-        if (draftMail.getContent() != null) return draftMail.getContent();
-        String content = Utils.wantDraft(InputView.enterContent());
-        draftMail.setContent(content);
-        return content;
-    }
-
-    private Mail getMail(String title, String content, Sender sender, DraftMail draftMail) {
-        Mail mail = Mail.of(title, content, sender.getSession());
-        draftMail.setMail(mail);
-        return mail;
-    }
-
-    private void lastCheck() {
-        Utils.wantDraft(InputView.enterLastCheck());
-    }
 }
