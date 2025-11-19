@@ -23,4 +23,9 @@ public class Mail {
     public Message getMessage() {
         return _sendableMessage.getMessage();
     }
+
+    public void setPriority(String s) throws MessagingException {
+        Priority priority = Priority.getPriority(s.length());
+        _sendableMessage.setUpPriority(priority);
+    }
 }

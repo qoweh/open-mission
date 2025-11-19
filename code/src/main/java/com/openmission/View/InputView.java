@@ -11,6 +11,7 @@ public class InputView {
     private static final String TITLE_MESSAGE = "전송하려는 메일의 제목을 입력해주세요.";
     private static final String CONTENT_MESSAGE = "전송하려는 메일의 내용을 입력해주세요.";
     private static final String RETRY_MESSAGE = "이어서 메일을 계속 전송하시려면 y, 아니라면 n를 입력해주세요.";
+    private static final String PRIORITY_MESSAGE = "중요도를 '@'의 개수(1~3)로 입력해주세요. 기본값과 예외값은 1(일반)입니다.";
 
     public static void printStartMessage() {
         System.out.println(START_MESSAGE);
@@ -34,6 +35,10 @@ public class InputView {
 
     public static String enterRetry() {
         return read(RETRY_MESSAGE);
+    }
+
+    public static String enterPriority() {
+        return read(PRIORITY_MESSAGE);
     }
 
     private static String read(String message) {

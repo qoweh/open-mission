@@ -7,6 +7,7 @@ import com.openmission.domain.Sender;
 import com.openmission.util.Utils;
 import com.openmission.view.InputView;
 import com.openmission.view.OutputView;
+import jakarta.mail.MessagingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,14 +26,15 @@ public class MailController {
     private void sendMail() {
         Sender sender = Utils.get(() -> getSender());
         Receivers receivers = Utils.get(() -> getReceivers());
-        Mail mail = Utils.get(() -> Mail.of(InputView.enterTitle(), InputView.enterContent(), sender.getSession()));
+        Mail mail = Utils.get(() -> getMail(sender));
 
         Utils.accept(Sender::send, sender, mail, receivers);
         OutputView.printSendMailResult(receivers.getMails());
     }
 
     private Sender getSender() {
-        return Sender.from(InputView.enterSenderMail());
+        Sender sender = Sender.from(InputView.enterSenderMail());
+        return sender;
     }
 
     private Receivers getReceivers() {
@@ -62,5 +64,12 @@ public class MailController {
 
     private static Receiver createReceiver(String mail) {
         return Receiver.from(mail);
+    }
+
+    private Mail getMail(Sender sender) throws MessagingException {
+        Mail mail = Mail.of(InputView.enterTitle(), InputView.enterContent(), sender.getSession());
+        mail.setPriority(InputView.enterPriority());
+        return mail;
+
     }
 }

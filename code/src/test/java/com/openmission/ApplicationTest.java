@@ -19,6 +19,7 @@ class ApplicationTest extends NsTest {
                             ".",
                             "제목",
                             "내용",
+                            "@",
                             "n"
                     );
                     assertThat(output()).contains(

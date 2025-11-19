@@ -16,6 +16,10 @@ public class SendableMessage {
         return message;
     }
 
+    public void setUpPriority(Priority priority) throws MessagingException {
+        message.setHeader("X-Priority", priority.name());
+    }
+
     public Message getMessage() {
         return message;
     }
