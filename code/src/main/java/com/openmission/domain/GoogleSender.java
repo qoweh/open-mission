@@ -1,6 +1,5 @@
 package com.openmission.domain;
 
-import com.openmission.domain.entity.Sender;
 import jakarta.mail.Authenticator;
 
 public class GoogleSender extends Sender {

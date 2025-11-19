@@ -7,7 +7,7 @@ public class Utils {
     public static void retryUntilGet(String condition, Supplier<String> supplier) {
         while (true) {
             String result = supplier.get();
-            if (!result.equalsIgnoreCase(condition)) {
+            if (result.equalsIgnoreCase(condition)) {
                 break;
             }
         }

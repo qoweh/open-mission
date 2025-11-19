@@ -10,7 +10,6 @@ public class InputView {
     private static final String RECEIVER_MESSAGE = "수신자의 이메일을 적절하게 입력해주세요. 입력을 그만하시려면 기호 '" + RECEIVER_SPECIAL_CHARACTER + "'를 입력해주세요.";
     private static final String TITLE_MESSAGE = "전송하려는 메일의 제목을 입력해주세요.";
     private static final String CONTENT_MESSAGE = "전송하려는 메일의 내용을 입력해주세요.";
-    private static final String DRAFT_MESSAGE = "임시 저장을 원하시면 알파벳 'D'를 입력하세요.";
     private static final String RETRY_MESSAGE = "이어서 메일을 계속 전송하시려면 y, 아니라면 n를 입력해주세요.";
 
     public static void printStartMessage() {
@@ -22,26 +21,23 @@ public class InputView {
     }
 
     public static String enterReceiverMail() {
-        printDraftMessage();
         return read(RECEIVER_MESSAGE);
     }
 
     public static String enterTitle() {
-        printDraftMessage();
         return read(TITLE_MESSAGE);
     }
 
     public static String enterContent() {
-        printDraftMessage();
         return read(CONTENT_MESSAGE);
+    }
+
+    public static String enterRetry() {
+        return read(RETRY_MESSAGE);
     }
 
     private static String read(String message) {
         System.out.println(message);
         return Console.readLine();
-    }
-
-    private static void printDraftMessage() {
-        System.out.println(DRAFT_MESSAGE);
     }
 }

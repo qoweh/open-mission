@@ -1,6 +1,5 @@
-package com.openmission.domain.entity;
+package com.openmission.domain;
 
-import com.openmission.domain.SendableMessage;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
