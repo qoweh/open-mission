@@ -1,12 +1,12 @@
 package com.openmission.controller;
 
+import com.openmission.domain.Mail;
+import com.openmission.domain.Receiver;
+import com.openmission.domain.Receivers;
+import com.openmission.domain.Sender;
 import com.openmission.util.Utils;
 import com.openmission.view.InputView;
 import com.openmission.view.OutputView;
-import com.openmission.domain.entity.Mail;
-import com.openmission.domain.entity.Receiver;
-import com.openmission.domain.entity.Receivers;
-import com.openmission.domain.entity.Sender;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class MailController {
     }
 
     private String process() {
-        checkDraftMail();
+//        checkDraftMail();
         sendMail();
         return InputView.enterRetry();
     }
@@ -51,15 +51,11 @@ public class MailController {
     private static List<Receiver> enterReceivers(List<Receiver> receivers) {
         while (true) {
             try {
-                String mail = Utils.wantDraft(InputView.enterReceiverMail());
-                if (mail.equals(".")) {
-                    break;
-                }
-                receiverList.add(Receiver.from(mail));
+                Receiver receiver = createReceiver(InputView.enterReceiverMail());
+                receivers.add(receiver);
             } catch (Exception e) {
                 break;
             }
-            receivers.add(createReceiver(mail));
         }
         return receivers;
     }

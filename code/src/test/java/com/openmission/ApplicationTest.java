@@ -18,7 +18,9 @@ class ApplicationTest extends NsTest {
                             "sunnybikers@naver.com",
                             ".",
                             "제목",
-                            "내용");
+                            "내용",
+                            "n"
+                    );
                     assertThat(output()).contains(
                             "minu421@naver.com",
                             "sunnybikers@naver.com",

@@ -1,6 +1,5 @@
 package com.openmission.domain;
 
-import com.openmission.domain.entity.Sender;
 import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.mail.Authenticator;
 import jakarta.mail.PasswordAuthentication;
