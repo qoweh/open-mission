@@ -36,6 +36,10 @@ public class InputView {
         return read(CONTENT_MESSAGE);
     }
 
+    public static String enterRetry() {
+        return read(RETRY_MESSAGE);
+    }
+
     private static String read(String message) {
         System.out.println(message);
         return Console.readLine();
