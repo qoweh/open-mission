@@ -11,6 +11,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class MailController {
     public void run() {
@@ -29,46 +30,21 @@ public class MailController {
         Mail mail = Utils.get(() -> getMail(sender));
 
         Utils.accept(Sender::send, sender, mail, receivers);
-        OutputView.printSendMailResult(receivers.getMails());
+        OutputView.printSendMailResult(receivers.getReceiversMails());
     }
 
     private Sender getSender() {
-        Sender sender = Sender.from(InputView.enterSenderMail());
-        return sender;
+        return Sender.from(InputView.enterSenderMail());
     }
 
     private Receivers getReceivers() {
-        List<Receiver> receivers = createReceivers();
-        List<Receiver> ccReceivers = createCCReceivers();
+        List<Receiver> receivers = createReceivers(InputView::enterReceiverMail);
+        List<Receiver> ccReceivers = createReceivers(InputView::enterCcReceiverMail);
         return Receivers.of(receivers, ccReceivers);
     }
 
-    private static List<Receiver> createReceivers() {
-        List<Receiver> receivers = enterReceivers(new ArrayList<>());
-        if (receivers.isEmpty()) {
-            throw new IllegalArgumentException("지정된 수신자의 이메일이 없습니다.");
-        }
-        return receivers;
-    }
-
-    private List<Receiver> createCCReceivers() {
-        return null;
-    }
-
-    private static List<Receiver> enterReceivers(List<Receiver> receivers) {
-        while (true) {
-            try {
-                Receiver receiver = createReceiver(InputView.enterReceiverMail());
-                receivers.add(receiver);
-            } catch (Exception e) {
-                break;
-            }
-        }
-        return receivers;
-    }
-
-    private static Receiver createReceiver(String mail) {
-        return Receiver.from(mail);
+    private List<Receiver> createReceivers(Supplier<String> inputView) {
+        return Utils.enterReceivers(new ArrayList<>(), inputView);
     }
 
     private Mail getMail(Sender sender) throws MessagingException {
@@ -76,8 +52,7 @@ public class MailController {
         String content = InputView.enterContent();
         Session session = sender.getSession();
         String priority = InputView.enterPriority();
-        Mail mail = Mail.of(title,  content, session, priority);
-        return mail;
+        return Mail.of(title,  content, session, priority);
 
     }
 }

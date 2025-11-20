@@ -37,8 +37,8 @@ public abstract class Sender {
     public void send(Mail mail, Receivers receivers) throws MessagingException {
         Message message = mail.getMessage();
         message.setFrom(new InternetAddress(_mail));
-        message.setRecipients(Message.RecipientType.TO, receivers.getAddresses());
-        message.setRecipients(Message.RecipientType.CC, receivers.getAddresses());
+        message.setRecipients(Message.RecipientType.TO, receivers.getReceiversAddress());
+        message.setRecipients(Message.RecipientType.CC, receivers.getCcReceiversAddress());
 
         Transport.send(message);
     }

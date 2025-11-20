@@ -17,6 +17,8 @@ class ApplicationTest extends NsTest {
                             "minu421@naver.com",
                             "sunnybikers@naver.com",
                             ".",
+                            "sunnybikers@naver.com",
+                            ".",
                             "제목",
                             "내용",
                             "@",
