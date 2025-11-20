@@ -31,10 +31,6 @@ public abstract class Sender {
         return MailDomain.createFrom(mail);
     }
 
-    public Session getSession() {
-        return _session;
-    }
-
     public void send(Mail mail, Receivers receivers) throws MessagingException {
         Message message = mail.getMessage();
         message.setFrom(new InternetAddress(_mail));
@@ -42,5 +38,13 @@ public abstract class Sender {
         message.setRecipients(Message.RecipientType.CC, receivers.getCcReceiversAddress());
 
         Transport.send(message);
+    }
+
+    public String getMail() {
+        return _mail;
+    }
+
+    public Session getSession() {
+        return _session;
     }
 }

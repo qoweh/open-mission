@@ -3,34 +3,40 @@ package com.openmission.controller;
 import com.openmission.domain.Mail;
 import com.openmission.domain.Receiver;
 import com.openmission.domain.Receivers;
+import com.openmission.domain.SaveLog;
 import com.openmission.domain.Sender;
 import com.openmission.util.Utils;
 import com.openmission.view.InputView;
 import com.openmission.view.OutputView;
 import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
 public class MailController {
     public void run() {
+        List<SaveLog> logs = new ArrayList<>();
         InputView.printStartMessage();
-        Utils.retryUntilGet("n", () -> process());
+        Utils.retryUntilGet("n", () -> process(logs));
+
+        logs.forEach(log -> OutputView.printLogs(log.sender(), log.receivers(), log.title(), log.localDateTime()));
     }
 
-    private String process() {
-        sendMail();
+    private String process(List<SaveLog> logs) {
+        logs.add(sendMail());
         return InputView.enterRetry();
     }
 
-    private void sendMail() {
+    private SaveLog sendMail() {
         Sender sender = Utils.get(() -> getSender());
         Receivers receivers = Utils.get(() -> getReceivers());
         Mail mail = Utils.get(() -> getMail(sender));
 
-        if (!Utils.accept(Sender::send, sender, mail, receivers)) return ;
+        if (!Utils.accept(Sender::send, sender, mail, receivers)) return null;
         OutputView.printSendMailResult(receivers.getReceiversMails());
+        return getSaveLog(sender, receivers, mail);
     }
 
     private Sender getSender() {
@@ -54,5 +60,9 @@ public class MailController {
         String priority = InputView.enterPriority();
         return Mail.of(title,  content, session, priority);
 
+    }
+
+    private SaveLog getSaveLog(Sender sender, Receivers receivers, Mail mail) {
+        return new SaveLog(sender.getMail(), receivers.getReceiversMails(), mail.getTitle(), LocalDateTime.now());
     }
 }

@@ -1,5 +1,6 @@
 package com.openmission.view;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class OutputView {
@@ -14,5 +15,13 @@ public class OutputView {
         System.out.println(MAILS_MESSAGE_FORMAT);
         mails.forEach(System.out::println);
         System.out.println(System.lineSeparator() + RESULT_MESSAGE);
+    }
+
+    public static void printLogs(String sender, List<String> receivers, String title, LocalDateTime localDateTime) {
+        System.out.println("발신자:" + sender);
+        System.out.println("수신자:" + receivers);
+        System.out.println("제목:" + title);
+        System.out.println("일시:" + localDateTime);
+        System.out.println();
     }
 }

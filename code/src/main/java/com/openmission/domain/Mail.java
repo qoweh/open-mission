@@ -13,12 +13,12 @@ public class Mail {
     }
 
     public static Mail of(String title, String content, Session session, String priorityString) throws MessagingException {
-        validate(title, content);
         Priority priority = Priority.getPriority(priorityString.length());
         return new Mail(title, content, new MimeMessage(session), priority);
     }
 
-    private static void validate(String title, String content) {
+    public String getTitle() {
+        return _sendableMessage.getTitle();
     }
 
     public Message getMessage() {
