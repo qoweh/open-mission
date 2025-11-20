@@ -4,23 +4,20 @@ import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
 
 public class SendableMessage {
-    private final Message message;
+    private final Message _message;
 
-    public SendableMessage(String title, String content, Message message) throws MessagingException {
-        this.message = setUpMessage(title, content, message);
+    public SendableMessage(String title, String content, Message message, Priority priority) throws MessagingException {
+        _message = setUpMessage(title, content, message, priority);
     }
 
-    private Message setUpMessage(String title, String content, Message message) throws MessagingException {
+    private Message setUpMessage(String title, String content, Message message, Priority priority) throws MessagingException {
         message.setSubject(title);
         message.setContent(content, "text/html; charset=utf-8");
-        return message;
-    }
-
-    public void setUpPriority(Priority priority) throws MessagingException {
         message.setHeader("X-Priority", priority.name());
+        return message;
     }
 
     public Message getMessage() {
-        return message;
+        return _message;
     }
 }

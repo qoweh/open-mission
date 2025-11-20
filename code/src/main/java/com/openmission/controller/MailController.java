@@ -8,6 +8,7 @@ import com.openmission.util.Utils;
 import com.openmission.view.InputView;
 import com.openmission.view.OutputView;
 import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,6 @@ public class MailController {
     }
 
     private String process() {
-//        checkDraftMail();
         sendMail();
         return InputView.enterRetry();
     }
@@ -39,7 +39,8 @@ public class MailController {
 
     private Receivers getReceivers() {
         List<Receiver> receivers = createReceivers();
-        return Receivers.from(receivers);
+        List<Receiver> ccReceivers = createCCReceivers();
+        return Receivers.of(receivers, ccReceivers);
     }
 
     private static List<Receiver> createReceivers() {
@@ -48,6 +49,10 @@ public class MailController {
             throw new IllegalArgumentException("지정된 수신자의 이메일이 없습니다.");
         }
         return receivers;
+    }
+
+    private List<Receiver> createCCReceivers() {
+        return null;
     }
 
     private static List<Receiver> enterReceivers(List<Receiver> receivers) {
@@ -67,8 +72,11 @@ public class MailController {
     }
 
     private Mail getMail(Sender sender) throws MessagingException {
-        Mail mail = Mail.of(InputView.enterTitle(), InputView.enterContent(), sender.getSession());
-        mail.setPriority(InputView.enterPriority());
+        String title = InputView.enterTitle();
+        String content = InputView.enterContent();
+        Session session = sender.getSession();
+        String priority = InputView.enterPriority();
+        Mail mail = Mail.of(title,  content, session, priority);
         return mail;
 
     }

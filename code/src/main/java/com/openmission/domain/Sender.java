@@ -38,6 +38,7 @@ public abstract class Sender {
         Message message = mail.getMessage();
         message.setFrom(new InternetAddress(_mail));
         message.setRecipients(Message.RecipientType.TO, receivers.getAddresses());
+        message.setRecipients(Message.RecipientType.CC, receivers.getAddresses());
 
         Transport.send(message);
     }

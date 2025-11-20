@@ -6,13 +6,15 @@ import java.util.List;
 
 public class Receivers {
     private final List<Receiver> receivers;
+    private final List<Receiver> ccReceivers;
 
-    private Receivers(List<Receiver> receivers) {
+    private Receivers(List<Receiver> receivers, List<Receiver> ccReceivers) {
         this.receivers = receivers;
+        this.ccReceivers = ccReceivers;
     }
 
-    public static Receivers from(List<Receiver> receivers) {
-        return new Receivers(receivers);
+    public static Receivers of(List<Receiver> receivers, List<Receiver> ccReceivers) {
+        return new Receivers(receivers, ccReceivers);
     }
 
     public List<String> getMails() {

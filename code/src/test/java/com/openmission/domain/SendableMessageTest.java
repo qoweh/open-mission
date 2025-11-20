@@ -13,11 +13,8 @@ class SendableMessageTest {
     void 우선순위_설정() throws MessagingException {
         // given
         Message message = new MimeMessage((Session) null);
-        SendableMessage sendableMessage = new SendableMessage("제목", "내용", message);
         Priority priority = Priority.NORMAL;
-
-        // when
-        sendableMessage.setUpPriority(priority);
+        SendableMessage sendableMessage = new SendableMessage("제목", "내용", message, priority);
 
         // then
         Assertions.assertThat(sendableMessage.getMessage().getHeader("X-Priority")).contains(priority.name());
