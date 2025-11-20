@@ -1,10 +1,10 @@
 package com.openmission.controller;
 
-import com.openmission.domain.Mail;
-import com.openmission.domain.Receiver;
-import com.openmission.domain.Receivers;
+import com.openmission.domain.mail.Mail;
+import com.openmission.domain.recipient.Receiver;
+import com.openmission.domain.recipient.Receivers;
 import com.openmission.domain.SaveLog;
-import com.openmission.domain.Sender;
+import com.openmission.domain.sender.Sender;
 import com.openmission.util.Utils;
 import com.openmission.view.InputView;
 import com.openmission.view.OutputView;

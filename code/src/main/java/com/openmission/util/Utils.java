@@ -1,7 +1,6 @@
 package com.openmission.util;
 
-import com.openmission.domain.Receiver;
-import com.openmission.view.InputView;
+import com.openmission.domain.recipient.Receiver;
 import com.openmission.view.OutputView;
 import java.util.List;
 import java.util.function.Supplier;

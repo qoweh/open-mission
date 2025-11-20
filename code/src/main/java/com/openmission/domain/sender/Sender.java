@@ -1,5 +1,8 @@
-package com.openmission.domain;
+package com.openmission.domain.sender;
 
+import com.openmission.domain.MailDomain;
+import com.openmission.domain.mail.Mail;
+import com.openmission.domain.recipient.Receivers;
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;

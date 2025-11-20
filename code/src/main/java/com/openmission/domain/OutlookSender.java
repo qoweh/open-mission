@@ -1,5 +1,6 @@
 package com.openmission.domain;
 
+import com.openmission.domain.sender.Sender;
 import jakarta.mail.Authenticator;
 
 public class OutlookSender extends Sender {

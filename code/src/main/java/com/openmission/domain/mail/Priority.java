@@ -1,4 +1,4 @@
-package com.openmission.domain;
+package com.openmission.domain.mail;
 
 import java.util.Arrays;
 

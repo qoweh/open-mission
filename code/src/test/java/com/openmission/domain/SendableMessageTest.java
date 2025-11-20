@@ -1,6 +1,8 @@
 package com.openmission.domain;
 
 
+import com.openmission.domain.mail.Priority;
+import com.openmission.domain.mail.SendableMessage;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
 import jakarta.mail.Session;

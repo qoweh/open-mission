@@ -1,4 +1,4 @@
-package com.openmission.domain;
+package com.openmission.domain.recipient;
 
 import jakarta.mail.Address;
 import jakarta.mail.internet.InternetAddress;
