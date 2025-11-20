@@ -15,7 +15,7 @@ public class SendableMessage {
     private Message setUpMessage(String title, String content, Message message, Priority priority) throws MessagingException {
         message.setSubject(title);
         message.setContent(content, "text/html; charset=utf-8");
-        message.setHeader("X-Priority", priority.name());
+        message.setHeader("X-Priority", priority.getPriorityValue());
         return message;
     }
 

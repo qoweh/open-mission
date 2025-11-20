@@ -13,7 +13,7 @@ public class Mail {
     }
 
     public static Mail of(String title, String content, Session session, String priorityString) throws MessagingException {
-        Priority priority = Priority.getPriority(priorityString.length());
+        Priority priority = Priority.fromSymbol(priorityString);
         return new Mail(title, content, new MimeMessage(session), priority);
     }
 

@@ -59,7 +59,6 @@ public class MailController {
         Session session = sender.getSession();
         String priority = InputView.enterPriority();
         return Mail.of(title,  content, session, priority);
-
     }
 
     private boolean hasSendError(Sender sender, Mail mail, Receivers receivers) {
