@@ -34,7 +34,7 @@ public class MailController {
         Receivers receivers = Utils.get(() -> getReceivers());
         Mail mail = Utils.get(() -> getMail(sender));
 
-        if (!Utils.accept(Sender::send, sender, mail, receivers)) return null;
+        if (hasSendError(sender, mail, receivers)) return null;
         OutputView.printSendMailResult(receivers.getReceiversMails());
         return getSaveLog(sender, receivers, mail);
     }
@@ -60,6 +60,17 @@ public class MailController {
         String priority = InputView.enterPriority();
         return Mail.of(title,  content, session, priority);
 
+    }
+
+    private boolean hasSendError(Sender sender, Mail mail, Receivers receivers) {
+        int i = 3;
+        while (!Utils.accept(Sender::send, sender, mail, receivers) && i > 0) {
+            i--;
+        }
+        if (i == 0) {
+            return true;
+        }
+        return false;
     }
 
     private SaveLog getSaveLog(Sender sender, Receivers receivers, Mail mail) {
