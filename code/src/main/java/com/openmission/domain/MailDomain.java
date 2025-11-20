@@ -10,13 +10,15 @@ public class MailDomain {
     private static final String MAIL_PATTERN = "^[\\w.-]+@[\\w.-]+\\.[A-Za-z]{2,}$";
 
     private static final String DOMAIN_NAVER = "@naver.com";
-    private static final String DOMAIN_GOOGLE = "@google.com";
+    private static final String DOMAIN_GOOGLE = "@gmail.com";
+    private static final String DOMAIN_OUTLOOK_KNUT = "ut.ac.kr";
 
     private static final String productEnvFile = ".env.examples";
     private static final String developEnvFile = ".env";
     private static final Dotenv dotenv = Dotenv.configure().filename(developEnvFile).load();
     private static final String NAVER_APP_PASSWORD = dotenv.get("NAVER_APP_PASSWORD", "EMPTY_VALUE");
     private static final String GOOGLE_APP_PASSWORD = dotenv.get("GOOGLE_APP_PASSWORD", "EMPTY_VALUE");
+    private static final String OUTLOOK_APP_PASSWORD = dotenv.get("OUTLOOK_APP_PASSWORD", "EMPTY_VALUE");
 
     public static Sender createFrom(String mail) {
         validate(mail);
@@ -26,6 +28,9 @@ public class MailDomain {
         }
         if (mail.contains(DOMAIN_GOOGLE)) {
             return new GoogleSender(mail, makeAuthenticator(mail, GOOGLE_APP_PASSWORD));
+        }
+        if (mail.contains(DOMAIN_OUTLOOK_KNUT)) {
+            return new OutlookSender(mail, makeAuthenticator(mail, OUTLOOK_APP_PASSWORD));
         }
 
         throw new IllegalArgumentException(INVALID_DOMAIN_MAIL);

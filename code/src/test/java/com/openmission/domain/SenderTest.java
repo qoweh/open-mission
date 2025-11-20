@@ -41,7 +41,7 @@ class SenderTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"asdf@naver.com", "asdf@google.com"})
+    @ValueSource(strings = {"asdf@naver.com", "asdf@gmail.com"})
     void 지원하는_도메인의_이메일(String input) {
         // given
         Sender sender;

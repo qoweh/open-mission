@@ -10,10 +10,24 @@ import org.junit.jupiter.api.Test;
 
 class ApplicationTest extends NsTest {
     @Test
-    void 기능_테스트() {
+    void Naver_메일_기능_테스트() {
+        integrationTest("sunnybikers@naver.com");
+    }
+
+    @Test
+    void Google_메일_기능_테스트() {
+        integrationTest("rlaalsdn110@gmail.com");
+    }
+
+    @Test
+    void Outlook_메일_기능_테스트() {
+        integrationTest("2326010@office.ut.ac.kr");
+    }
+
+    private void integrationTest(String mail) {
         assertRandomUniqueNumbersInRangeTest(
                 () -> {
-                    run("sunnybikers@naver.com",
+                    run(mail,
                             "minu421@naver.com",
                             "sunnybikers@naver.com",
                             ".",

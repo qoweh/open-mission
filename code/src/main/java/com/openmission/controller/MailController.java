@@ -29,7 +29,7 @@ public class MailController {
         Receivers receivers = Utils.get(() -> getReceivers());
         Mail mail = Utils.get(() -> getMail(sender));
 
-        Utils.accept(Sender::send, sender, mail, receivers);
+        if (!Utils.accept(Sender::send, sender, mail, receivers)) return ;
         OutputView.printSendMailResult(receivers.getReceiversMails());
     }
 
@@ -38,13 +38,13 @@ public class MailController {
     }
 
     private Receivers getReceivers() {
-        List<Receiver> receivers = createReceivers(InputView::enterReceiverMail);
-        List<Receiver> ccReceivers = createReceivers(InputView::enterCcReceiverMail);
+        List<Receiver> receivers = createReceivers(InputView::enterReceiverMail, false);
+        List<Receiver> ccReceivers = createReceivers(InputView::enterCcReceiverMail, true);
         return Receivers.of(receivers, ccReceivers);
     }
 
-    private List<Receiver> createReceivers(Supplier<String> inputView) {
-        return Utils.enterReceivers(new ArrayList<>(), inputView);
+    private List<Receiver> createReceivers(Supplier<String> inputView, boolean possibleEmpty) {
+        return Utils.enterReceivers(new ArrayList<>(), inputView, possibleEmpty);
     }
 
     private Mail getMail(Sender sender) throws MessagingException {

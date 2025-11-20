@@ -18,34 +18,33 @@ public class Test {
     private static Dotenv dotenv = Dotenv.configure().filename(developEnvFile).load();
     private static final String GOOGLE_APP_PASSWORD = dotenv.get("GOOGLE_APP_PASSWORD", "EMPTY_VALUE");
     private static final String NAVER_APP_PASSWORD = dotenv.get("NAVER_APP_PASSWORD", "EMPTY_VALUE");
+    private static final String OUTLOOK_APP_PASSWORD = dotenv.get("OUTLOOK_APP_PASSWORD", "EMPTY_VALUE");
 
     public static void main(String[] args) {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
-        props.put("mail.smtp.host", "smtp.naver.com");
-        props.put("mail.smtp.port", "587"); // naver - google(465)
-        props.put("mail.smtp.ssl.trust", "smtp.naver.com");
 
-
-        String sender = "sunnybikers@naver.com";
-        String receiver = "sunnybikers@naver.com";
+//        String sender = "2326010@office.ut.ac.kr";
+//        String sender = "boxsunny@outlook.com";
+        String sender = "rlaalsdn110@gmail.com";
         String title = "테스트 메일입니다.";
         String content = "안녕하세요 ㅎㅇㅎㅇ";
 
         Session session = Session.getInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(sender, NAVER_APP_PASSWORD);
+                return new PasswordAuthentication(sender, GOOGLE_APP_PASSWORD);
             }
         });
         Message message = new MimeMessage(session);
 
         try {
             message.setFrom(new InternetAddress(sender));
-//            message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiver));
-//            message.addRecipients(Message.RecipientType.TO, new InternetAddress[] {new InternetAddress("minu421@naver.com"), new InternetAddress("sunnybikers@naver.com")});
             List<String> strings = List.of("minu421@naver.com", "sunnybikers@naver.com");
             message.setRecipients(Message.RecipientType.TO, strings.stream().map(s -> {
                 try { return new InternetAddress(s); }
