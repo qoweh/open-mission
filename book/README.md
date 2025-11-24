@@ -3,7 +3,7 @@
 
 ---
 
-### 📙 [리팩토링: 코드 품질을 개선하는 객체지향 사고법](./refactoring.md)
+### 📙 [리팩토링: 코드 품질을 개선하는 객체지향 사고법](./refactoring-martin-fowler.md)
 <img src="./RefactoringMartinFowler.jpg" width="300" alt="리팩토링: 코드 품질을 개선하는 객체지향 사고법">
 
 ---
