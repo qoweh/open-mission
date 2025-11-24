@@ -4,12 +4,12 @@ import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
 
 public class SendableMessage {
-    private final String _title;
-    private final Message _message;
+    private final String title;
+    private final Message message;
 
     public SendableMessage(String title, String content, Message message, Priority priority) throws MessagingException {
-        _title = title;
-        _message = setUpMessage(title, content, message, priority);
+        this.title = title;
+        this.message = setUpMessage(title, content, message, priority);
     }
 
     private Message setUpMessage(String title, String content, Message message, Priority priority) throws MessagingException {
@@ -20,10 +20,10 @@ public class SendableMessage {
     }
 
     public String getTitle() {
-        return _title;
+        return title;
     }
 
     public Message getMessage() {
-        return _message;
+        return message;
     }
 }

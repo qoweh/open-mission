@@ -18,6 +18,18 @@
 - Naver와 Google 계정 중 하나를 선택하여 메일을 전송할 수 있습니다.
     - 각 이메일을 사용하기 위해서 앱 비밀번호를 설정한 후 `.env` 파일에 추가해야 합니다.
 
+- Naver
+    - ![1](./docs-picture/naver/1.png)
+    - ![2](./docs-picture/naver/2.png)
+    - ![3](./docs-picture/naver/3.png)
+    - ![4](./docs-picture/naver/4.png)
+    - ![5](./docs-picture/naver/5.png)
+    - ![6](./docs-picture/naver/6.png)
+- Google
+    - ![1](./docs-picture/google/1.png)
+    - ![2](./docs-picture/google/2.png)
+    - ![3](./docs-picture/google/3.png)
+    - ![4](./docs-picture/google/4.png)
 
 ---
 
