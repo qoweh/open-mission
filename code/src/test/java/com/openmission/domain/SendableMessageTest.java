@@ -19,6 +19,6 @@ class SendableMessageTest {
         SendableMessage sendableMessage = new SendableMessage("제목", "내용", message, priority);
 
         // then
-        Assertions.assertThat(sendableMessage.getMessage().getHeader("X-Priority")).contains(priority.name());
+        Assertions.assertThat(sendableMessage.getMessage().getHeader("X-Priority")).contains(priority.getPriorityValue());
     }
 }

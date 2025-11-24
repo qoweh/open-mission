@@ -17,7 +17,7 @@ public enum Priority {
         this.symbol = symbol;
     }
 
-    public String  getPriorityValue() {
+    public String getPriorityValue() {
         return String.valueOf(priorityValue);
     }
 
